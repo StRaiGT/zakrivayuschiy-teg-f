@@ -22,10 +22,10 @@
   border: 2px solid var(--main-color);
   padding-block-start: clamp(7.5rem, 6.3462rem + 4.9231vw, 8.5rem);
   padding-block-end: 25px;
-  font-family: var(--accent-font);
+  font-family: var(--accent-font), fantasy;
   font-weight: var(--accent-font-weight);
   background-color: var(--background-color);
-  inline-size: clamp(375px, 100vw, 700px);
+  inline-size: clamp(375px, 100%, 700px);
 }
 
 .header__logo {
@@ -54,7 +54,7 @@
   position: relative;
   border: none;
   padding-inline-start: 25px;
-  font-family: var(--accent-font);
+  font-family: var(--accent-font), fantasy;
   font-weight: var(--accent-font-weight);
   font-size: 14px;
   text-transform: uppercase;
@@ -72,6 +72,7 @@
   opacity: 0.6;
   animation: arrow 0.5s ease-in-out infinite alternate;
   inset-inline-start: 5px;
+  inset-block-start: 0;
 }
 
 .theme-menu__button::after {
@@ -115,7 +116,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 50px;
-  inline-size: clamp(375px, 100vw, 700px);
+  inline-size: clamp(375px, 100%, 700px);
 }
 
 .card {
@@ -145,13 +146,18 @@
   text-shadow: -1px 0 var(--text-shadow-color), 1px 0 var(--text-shadow-color),
     0 -1px var(--text-shadow-color), 0 1px var(--text-shadow-color);
   inset-inline-end: clamp(10px, 3vw, 25px);
+  inset-block-start: 0;
   mix-blend-mode: hard-light;
 }
 
-@supports (-webkit-text-stroke: 1px var(--text-shadow-color)) {
+@supports (
+  (-webkit-text-stroke: 1px var(--text-shadow-color)) or
+    (text-stroke: 1px var(--text-shadow-color))
+) {
   .label {
     text-shadow: none;
     -webkit-text-stroke: 1px var(--text-shadow-color);
+    text-stroke: 1px var(--text-shadow-color);
   }
 }
 
@@ -177,13 +183,18 @@
   display: flex;
   justify-content: end;
   align-items: center;
+  gap: 7px;
   padding: 28px 0 24px;
 }
 
 .card__icon-button {
   display: flex;
   border: none;
+  padding: 0;
+  outline: 0 solid var(--main-color);
+  outline-offset: -1px;
   background-color: transparent;
+  transition: outline 0.3s ease;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
@@ -196,8 +207,6 @@
 
 .card__icon-button:focus-visible {
   outline: 2px solid var(--main-color);
-  outline-offset: -2px;
-  transition: outline 0.3s ease;
 }
 
 .button {
@@ -205,6 +214,7 @@
   border: 2px solid var(--main-color);
   overflow: hidden;
   background-color: transparent;
+  transition: box-shadow 0.3s ease;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
@@ -232,7 +242,6 @@
 
 .button:focus-visible {
   box-shadow: 2px 2px 0 var(--main-color);
-  transition: box-shadow 0.3s ease;
 }
 
 .card__like-button {
@@ -243,7 +252,7 @@
 .button__text {
   z-index: 1;
   color: var(--button-text-color);
-  font-family: var(--accent-font);
+  font-family: var(--accent-font), fantasy;
   font-weight: var(--accent-font-weight);
   font-size: 14px;
   line-height: 90%;
@@ -307,7 +316,7 @@
   border: 2px solid var(--main-color);
   padding: 30px clamp(30px, 3.2212rem + -3.0769vw, 40px);
   color: var(--main-color);
-  font-family: var(--accent-font);
+  font-family: var(--accent-font), fantasy;
   font-weight: var(--accent-font-weight);
   font-size: 14px;
   line-height: 150%;
