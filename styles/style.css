@@ -1,20 +1,357 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ theme-dark — класс тёмной темы
-✦ theme-light — класс светлой темы
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
-
-*/
-
 .page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--main-color);
+  font-family: var(--main-font), sans-serif;
+  background-color: var(--background-color);
+  background-image: var(--background-image);
+  background-size: cover;
+  background-attachment: fixed;
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  font-variation-settings: "wght" var(--main-font-weight-text);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin-block: 100px;
+  border: 2px solid var(--main-color);
+  padding-block-start: clamp(7.5rem, 6.3462rem + 4.9231vw, 8.5rem);
+  padding-block-end: 25px;
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-weight);
+  background-color: var(--background-color);
+  inline-size: clamp(375px, 100vw, 700px);
+}
+
+.header__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 19px;
+  text-transform: uppercase;
+}
+
+.header__title {
+  font-size: clamp(3.0625rem, 1.8943rem + 4.9844vw, 4.0625rem);
+}
+
+.header__subtitle {
+  font-size: clamp(0.875rem, 0.2179rem + 2.8037vw, 1.4375rem);
+}
+
+.theme-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.theme-menu__button {
+  position: relative;
+  border: none;
+  padding-inline-start: 25px;
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-weight);
+  font-size: 14px;
+  text-transform: uppercase;
+  background-color: transparent;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.theme-menu__button:disabled::before {
+  content: "▶";
+  position: absolute;
+  opacity: 0.6;
+  animation: arrow 0.5s ease-in-out infinite alternate;
+  inset-inline-start: 5px;
+}
+
+.theme-menu__button::after {
+  content: "";
+  position: absolute;
+  opacity: 0.6;
+  background-color: var(--main-color);
+  transition: transform 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: 0;
+  inset-inline-start: 25px;
+  inset-block-end: 0;
+  block-size: 2px;
+  inline-size: calc(100% - 30px);
+}
+
+.theme-menu__button:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.theme-menu__button:hover {
+  opacity: 0.6;
+}
+
+.theme-menu__button:focus {
+  outline: none;
+}
+
+.theme-menu__button:focus-visible {
+  opacity: 0.6;
+}
+
+.theme-menu__button:focus-visible::after {
+  opacity: 0.6;
+  transform: scaleX(1);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  inline-size: clamp(375px, 100vw, 700px);
+}
+
+.card {
+  border: 2px solid var(--main-color);
+  background-color: var(--background-color);
+}
+
+.card__title {
+  padding: 4px 10px 5px;
+  font-size: 18px;
+  line-height: 120%;
+  font-variation-settings: "wght" var(--main-font-weight-title);
+}
+
+.card__image-container {
+  position: relative;
+  border-block: 2px solid var(--main-color);
+}
+
+.label {
+  position: absolute;
+  z-index: 1;
+  padding-block-start: 25px;
+  opacity: 0.5;
+  font-family: var(--accent-font), fantasy;
+  font-size: 14px;
+  text-shadow: -1px 0 var(--text-shadow-color), 1px 0 var(--text-shadow-color),
+    0 -1px var(--text-shadow-color), 0 1px var(--text-shadow-color);
+  inset-inline-end: clamp(10px, 3vw, 25px);
+  mix-blend-mode: hard-light;
+}
+
+@supports (-webkit-text-stroke: 1px var(--text-shadow-color)) {
+  .label {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--text-shadow-color);
+  }
+}
+
+.image {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+.card__content {
+  padding: 0 25px;
+}
+
+.card__text {
+  padding-top: 25px;
+  font-size: 18px;
+  line-height: 117%;
+}
+
+.card__button-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 28px 0 24px;
+}
+
+.card__icon-button {
+  display: flex;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: -2px;
+  transition: outline 0.3s ease;
+}
+
+.button {
+  position: relative;
+  border: 2px solid var(--main-color);
+  overflow: hidden;
+  background-color: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--main-color);
+  transition: 0.5s ease-in-out;
+  transform: translateX(-100%);
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+.button:hover::before {
+  transform: translateX(0);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  box-shadow: 2px 2px 0 var(--main-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.card__like-button {
+  min-block-size: 38px;
+  min-inline-size: 130px;
+}
+
+.button__text {
+  z-index: 1;
+  color: var(--button-text-color);
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-weight);
+  font-size: 14px;
+  line-height: 90%;
+  mix-blend-mode: difference;
+}
+
+.filter-saturate {
+  filter: saturate(0.3);
+}
+
+.filter-saturate-max {
+  filter: saturate(2.5);
+}
+
+.filter-hue-rotate {
+  filter: hue-rotate(30deg);
+}
+
+.filter-invert {
+  filter: invert(0.8);
+}
+
+.filter-sepia {
+  filter: sepia(0.8);
+}
+
+.filter-blur {
+  filter: blur(0.8rem);
+}
+
+.filter-contrast-hue-rotate {
+  filter: contrast(0.5) hue-rotate(90deg);
+}
+
+.save__button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  margin-block-end: 100px;
+  padding: 15px 0;
+  background-color: var(--background-color);
+  inline-size: clamp(306px, 17.0337rem + 8.9231vw, 335px);
+}
+
+.floppy {
+  position: relative;
+  z-index: 1;
+  color: var(--button-text-color);
+  mix-blend-mode: difference;
+  inline-size: 28px;
+  block-size: 28px;
+}
+
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  border: 2px solid var(--main-color);
+  padding: 30px clamp(30px, 3.2212rem + -3.0769vw, 40px);
+  color: var(--main-color);
+  font-family: var(--accent-font);
+  font-weight: var(--accent-font-weight);
+  font-size: 14px;
+  line-height: 150%;
+  background-color: var(--background-color);
+  inline-size: clamp(341px, 20.4471rem + 3.6923vw, 353px);
+}
+
+.dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.75);
+}
+
+.dialog_container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dialog__floppy {
+  min-inline-size: 39px;
+  block-size: 39px;
+}
+
+.dialog__text {
+  text-transform: uppercase;
+}
+
+.dialog__form {
+  inline-size: 100%;
+}
+
+.dialog__button {
+  padding-block: 10px;
+  line-height: 90%;
+  inline-size: 100%;
+}
+
+@media (width >= 700px) {
+  .save__button {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .floppy {
+    inline-size: 21px;
+    block-size: 21px;
+  }
 }
